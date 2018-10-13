@@ -6,12 +6,13 @@ public class Snake : MonoBehaviour
 {
     public float turnSpeed = 10f;
     public float moveSpeed = 10f;
-    public float snakeAnimSpeed = 0.1f;
+    public int curveWaitTime = 3;
+    public float bodyPointLerp;
 
     [Header("Body Stuff")]
-    [SerializeField] private float snakeBodyGap;
+    [SerializeField] private float bodyGap;
 
-    private SnakeBodySpawner bodySpawner;
+    private BodyPointSpawner pointSpawner;
     private BGSpawner bGSpawner;
     private Vector3 position;
     private WaitForSeconds bodyUpdateWait;
@@ -21,18 +22,18 @@ public class Snake : MonoBehaviour
     {
         return transform.position;
     }
-    public float GetSnakeBodyGap()
+    public float GetBodyGap()
     {
-        return snakeBodyGap;
+        return bodyGap;
     }
     #endregion
 
     private void Awake()
     {
-        if (FindObjectOfType<SnakeBodySpawner>())
-            bodySpawner = FindObjectOfType<SnakeBodySpawner>();
+        if (FindObjectOfType<BodyPointSpawner>())
+            pointSpawner = FindObjectOfType<BodyPointSpawner>();
         else
-            Debug.LogError("SnakeBodySpawner Script is Missing");
+            Debug.LogError("BodyPointSpawner Script is Missing");
 
         if (FindObjectOfType<BGSpawner>())
             bGSpawner = FindObjectOfType<BGSpawner>();
@@ -42,7 +43,8 @@ public class Snake : MonoBehaviour
 
     private void Start()
     {
-        bodyUpdateWait = new WaitForSeconds(snakeAnimSpeed);
+        bodyUpdateWait = new WaitForSeconds(curveWaitTime);
+        FindObjectOfType<BodyPoint>().SetBodyPointLerp(bodyPointLerp);
     }
 
     void Update()
@@ -62,45 +64,51 @@ public class Snake : MonoBehaviour
     {
         position.x = Mathf.Clamp(position.x, -2.5f, 2.5f); // Clamping the x value
         transform.Translate(position);
-        StartCoroutine(Co_UpdateSnakeBody()); // Update Body
+        StartCoroutine(Co_UpdateSnakeBody()); // Update Body Parts
     }
 
     private IEnumerator Co_UpdateSnakeBody()
     {
-        if (bodySpawner.GetSnakeLength() > 0)
+        if (pointSpawner.GetSnakeLength() > 0)
         {
             Vector3 _position = Vector3.zero;
-            if (bodySpawner.GetSnakeLength() == 1)
+            if (pointSpawner.GetSnakeLength() == 1)
             {
-                yield return bodyUpdateWait;
                 _position = GetSnakePosition();
-                if (bodySpawner.GetElementAtIndex(0) != null)
-                    bodySpawner.GetElementAtIndex(0).SetFinalPosition(_position);
+                if (pointSpawner.GetElementAtIndex(0) != null)
+                {
+                    pointSpawner.GetElementAtIndex(0).SetFinalPosition(_position);
+                }
                 else
                     Debug.Log("Invalid index");
             }
             else
             {
-                print(bodySpawner.GetSnakeLength());
-
-                for (int i = 0; i < bodySpawner.GetSnakeLength(); i++)
+                for (int i = 0; i < pointSpawner.GetSnakeLength(); i++)
                 {
-                    yield return bodyUpdateWait;
                     if (i == 0)
                     {
                         _position = GetSnakePosition();
-                        if (bodySpawner.GetElementAtIndex(0) != null)
-                            bodySpawner.GetElementAtIndex(0).SetFinalPosition(_position);
+                        if (pointSpawner.GetElementAtIndex(0) != null)
+                        {
+                            pointSpawner.GetElementAtIndex(0).SetFinalPosition(_position);
+                        }
                     }
-                    else if (bodySpawner.GetElementAtIndex(i - 1) != null)
+                    else if (pointSpawner.GetElementAtIndex(i - 1) != null)
                     {
-                        _position = bodySpawner.GetElementAtIndex(i - 1).transform.position;
-                        _position.y -= snakeBodyGap;
-                        bodySpawner.GetElementAtIndex(i).SetFinalPosition(_position);
+                        _position = pointSpawner.GetElementAtIndex(i - 1).transform.position;
+                        _position.y -= bodyGap;
+
+                        // wait for 5 frames then update the finalposition
+                        // we could also use waitforseconds but it will create jitter issue
+                        for (int w = 0; w < curveWaitTime; w++)
+                        {
+                            yield return new WaitForEndOfFrame();
+                        }
+                        pointSpawner.GetElementAtIndex(i).SetFinalPosition(_position);
                     }
                     else
                         Debug.Log("Invalid index");
-
                 }
             }
         }
@@ -108,6 +116,7 @@ public class Snake : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
+        // Regenerating and deactivating BG
         if (col.transform.CompareTag("BG"))
         {
             bGSpawner.SpawnBG();
@@ -117,9 +126,6 @@ public class Snake : MonoBehaviour
             }
             else
                 Debug.LogError("BG Script in Missing");
-        }
-        else if (col.transform.CompareTag("SnakeBody"))
-        {
         }
     }
 }

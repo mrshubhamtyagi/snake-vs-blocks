@@ -8,6 +8,7 @@ TagManager:
   - BG
   - Head
   - Snake
+  - Point
   layers:
   - Default
   - TransparentFX
