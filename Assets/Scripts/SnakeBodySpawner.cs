@@ -15,13 +15,21 @@ public class SnakeBodySpawner : MonoBehaviour
     private Vector3 lastSpawnedPosition;
 
     #region SETTERS AND GETTER
-    public List<SnakeBody> GetBosyList()
+    public List<SnakeBody> GetCompleteList()
     {
         return snakeBodiesList;
     }
-    public SnakeBody GetLastBodyFromList()
+    public SnakeBody GetLastElement()
     {
         return snakeBodiesList[snakeBodiesList.Count - 1];
+    }
+    public SnakeBody GetElementAtIndex(int index)
+    {
+        if (index < snakeBodiesList.Count)
+            return snakeBodiesList[index];
+        else
+            return null;
+
     }
     public int GetSnakeLength()
     {
@@ -43,7 +51,7 @@ public class SnakeBodySpawner : MonoBehaviour
             head.name = "Head";
             head.transform.SetParent(FindObjectOfType<Snake>().transform);
             head.transform.position = Vector3.zero;
-            snakeBodiesList.Add(head);
+            //snakeBodiesList.Add(head);
         }
 
         for (int i = 0; i < 10; i++)

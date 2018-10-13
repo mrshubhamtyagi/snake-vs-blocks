@@ -12,7 +12,8 @@ public class BGSpawner : MonoBehaviour
 
     void Start()
     {
-
+        // First Background
+        SpawnBG();
     }
 
     public void SpawnBG()
@@ -44,7 +45,11 @@ public class BGSpawner : MonoBehaviour
             bg = Instantiate(backgroundPrefab); // Create new BG
 
         bg.SetParent(bgParent);
-        bg.transform.position = new Vector2(0, offsetInY + lastYPosition);
+        if (bgParent.childCount == 1) // First BG
+            bg.transform.position = Vector3.zero;
+        else
+            bg.transform.position = new Vector2(0, offsetInY + lastYPosition);
+
         lastYPosition = bg.transform.position.y;
         print(status);
     }
