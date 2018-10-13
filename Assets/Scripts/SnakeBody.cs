@@ -1,31 +1,45 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SnakeBody : MonoBehaviour
 {
-    public float turnSpeed = 10f;
-    public float moveSpeed = 10f;
+    private SnakeBodySpawner bodySpawner;
 
-    private Vector3 position;
+    private void Awake()
+    {
+        if (FindObjectOfType<SnakeBodySpawner>())
+            bodySpawner = FindObjectOfType<SnakeBodySpawner>();
+        else
+            Debug.LogError("SnakeBodySpawner is Missing");
+    }
 
     void Start()
     {
 
     }
 
-    void Update()
-    {
-        position.x = Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime;
-        position.y = moveSpeed * Time.deltaTime;
-        position.z = 0f;
 
-        Move();
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.transform.CompareTag("SnakeBody"))
+        {
+            print("Collided");
+            col.transform.SetParent(FindObjectOfType<Snake>().transform);
+            col.transform.position = GetNextPosition();
+            if (col.gameObject.GetComponent<SnakeBody>())
+                bodySpawner.AddBodyToList(col.gameObject.GetComponent<SnakeBody>());
+            else
+                Debug.LogError("SnakeBodyScript is Missing");
+        }
     }
 
-    private void Move()
+    private Vector3 GetNextPosition()
     {
-        position.x = Mathf.Clamp(position.x, -2.5f, 2.5f);
-        transform.Translate(position);
+        Vector3 position = bodySpawner.GetLastBodyFromList().transform.position;
+        position.y -= FindObjectOfType<Snake>().GetSnakeBodyGap();
+
+        return position;
     }
 }
