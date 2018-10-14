@@ -105,7 +105,10 @@ public class Snake : MonoBehaviour
                         {
                             yield return new WaitForEndOfFrame();
                         }
-                        pointSpawner.GetElementAtIndex(i).SetFinalPosition(_position);
+                        if (pointSpawner.GetElementAtIndex(i))
+                            pointSpawner.GetElementAtIndex(i).SetFinalPosition(_position);
+                        else
+                            Debug.Log(string.Format("Element at {0} index is not found", i));
                     }
                     else
                         Debug.Log("Invalid index");

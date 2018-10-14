@@ -40,11 +40,15 @@ public class BodyPointSpawner : MonoBehaviour
         snakeBodyPointList.Add(body);
         //body.transform.SetSiblingIndex(transform.parent.childCount - 1);
     }
+    public void RemoveFromTheList(BodyPoint point)
+    {
+        snakeBodyPointList.Remove(point);
+    }
     #endregion
 
     void Start()
     {
-        // Head
+        // Head Setup
         BodyPoint head = SpawnSnakeBodyFromPool();
         if (head != null)
         {

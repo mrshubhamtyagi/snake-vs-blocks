@@ -94,4 +94,9 @@ public class BodyPoint : MonoBehaviour
 
         return position;
     }
+
+    private void OnDestroy()
+    {
+        pointSpawner.RemoveFromTheList(this);
+    }
 }

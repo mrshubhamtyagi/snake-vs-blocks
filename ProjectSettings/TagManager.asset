@@ -8,7 +8,8 @@ TagManager:
   - BG
   - Head
   - Snake
-  - Point
+  - Block
+  - BodyPoint
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - Body
+  - BodyPoint
   - 
   - 
   - 

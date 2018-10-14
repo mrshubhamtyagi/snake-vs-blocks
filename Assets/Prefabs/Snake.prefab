@@ -71,4 +71,4 @@ MonoBehaviour:
   moveSpeed: 2
   curveWaitTime: 2
   bodyPointLerp: 0.5
-  bodyGap: 0.32
+  bodyGap: 0.35

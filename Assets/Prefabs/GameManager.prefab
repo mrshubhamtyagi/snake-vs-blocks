@@ -156,6 +156,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cc596f7234a34e7cb9a6e881aeecb37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockPrefab: {fileID: 114350441427914356, guid: 03baf655a5af34722963958b7967ec43,
+    type: 2}
+  blocksParent: {fileID: 4162504756186516}
+  blockGapInX: 1
+  blocksPerRow: 2
 --- !u!114 &114871761620634670
 MonoBehaviour:
   m_ObjectHideFlags: 1
