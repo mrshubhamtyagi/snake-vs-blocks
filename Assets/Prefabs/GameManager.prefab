@@ -160,7 +160,13 @@ MonoBehaviour:
     type: 2}
   blocksParent: {fileID: 4162504756186516}
   blockGapInX: 1
-  blocksPerRow: 2
+  blocksPerRow: 3
+  colors:
+  - {r: 1, g: 0.41960785, b: 0.41960785, a: 1}
+  - {r: 1, g: 0.9369289, b: 0.41960788, a: 1}
+  - {r: 1, g: 0.41960788, b: 0.9467528, a: 1}
+  - {r: 0.41960788, g: 0.6416805, b: 1, a: 1}
+  - {r: 0.41960788, g: 1, b: 0.59887445, a: 1}
 --- !u!114 &114871761620634670
 MonoBehaviour:
   m_ObjectHideFlags: 1

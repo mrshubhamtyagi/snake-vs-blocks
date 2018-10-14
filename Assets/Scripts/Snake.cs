@@ -44,13 +44,17 @@ public class Snake : MonoBehaviour
     private void Start()
     {
         bodyUpdateWait = new WaitForSeconds(curveWaitTime);
-        FindObjectOfType<BodyPoint>().SetBodyPointLerp(bodyPointLerp);
+        if (FindObjectOfType<BodyPoint>())
+            FindObjectOfType<BodyPoint>().SetBodyPointLerp(bodyPointLerp);
     }
 
     void Update()
     {
-        GetInput();
-        Move();
+        if (pointSpawner.GetSnakeLength() > 0)
+        {
+            GetInput();
+            Move();
+        }
     }
 
     private void GetInput()

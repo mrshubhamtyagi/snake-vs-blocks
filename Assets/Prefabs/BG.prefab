@@ -193,8 +193,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4978967900768794}
-  - component: {fileID: 212287589625661540}
   - component: {fileID: 114845684732445320}
+  - component: {fileID: 212287589625661540}
   - component: {fileID: 61500982444170370}
   - component: {fileID: 50384138842274892}
   m_Layer: 0
@@ -438,13 +438,13 @@ BoxCollider2D:
     border: {x: 0.19999999, y: 0.19999999, z: 0.22, w: 0.22}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 10, y: 20}
+    newSize: {x: 6, y: 20}
     adaptiveTilingThreshold: 0.5
     drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10, y: 1}
+  m_Size: {x: 6, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &114845684732445320
 MonoBehaviour:
@@ -543,7 +543,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 10, y: 20}
+  m_Size: {x: 6, y: 20}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

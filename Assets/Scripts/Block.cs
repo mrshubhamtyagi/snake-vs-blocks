@@ -14,13 +14,14 @@ public class Block : MonoBehaviour
     public void SetNumber(int i)
     {
         blockText.text = i.ToString();
+        counter = i;
     }
     #endregion
 
 
     void Start()
     {
-        int.TryParse(blockText.text, out counter);
+
     }
 
     void Update()
@@ -33,11 +34,24 @@ public class Block : MonoBehaviour
         if (col.transform.CompareTag("BodyPoint"))
         {
             Destroy(col.gameObject);
-            UpdateText();
+            UpdateTextUI();
+            foreach (Transform point in col.transform.parent)
+            {
+                //point.GetComponent<CircleCollider2D>().isTrigger = true;
+                //point.GetComponent<CircleCollider2D>().isTrigger = false;
+            }
         }
     }
 
-    private void UpdateText()
+    //private void OnCollisionEnter2D(Collision2D col)
+    //{
+    //    if (col.transform.CompareTag("BodyPoint"))
+    //    {
+    //        print("Collided");
+    //    }
+    //}
+
+    public void UpdateTextUI()
     {
         counter--;
         if (counter > 0)
