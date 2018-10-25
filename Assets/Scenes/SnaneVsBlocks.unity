@@ -303,7 +303,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bodyPrefab: {fileID: 4973649629050246, guid: d7c9dda7a9d064ea5ba587dd02fea329, type: 2}
-  numberPrefab: {fileID: 0}
+  numberPrefab: {fileID: 224033326387496866, guid: 9998c03f77f8e40689c5ba9166e34806,
+    type: 2}
   moveSpeed: 4
   turnSpeed: 8
   rotateSpeed: 40

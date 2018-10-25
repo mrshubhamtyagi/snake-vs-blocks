@@ -22,12 +22,14 @@ public class SnakeMovement : MonoBehaviour
     [SerializeField] private List<Transform> bodyList = new List<Transform>();
     private float turnAxis;
     private Quaternion headRotation;
-    private TextMeshPro numberText;
+    private TextMeshPro childenCounter;
 
     void Start()
     {
         for (int i = 0; i < 8; i++)
             SpawnBody();
+
+        childenCounter.text = bodyList.Count.ToString();
     }
 
     void Update()
@@ -60,12 +62,12 @@ public class SnakeMovement : MonoBehaviour
                 targetPosition.y -= gap;
 
                 //|| turnAxis > .99f || turnAxis < -.99f
-                if (turnAxis == 0f)
-                    for (int w = 0; w < waitFrames; w++)
-                        yield return new WaitForEndOfFrame();
-                else
-                    for (int w = 0; w < waitFrames - (waitFrames * .30f); w++)
-                        yield return new WaitForEndOfFrame();
+                //if (turnAxis == 0f)
+                for (int w = 0; w < waitFrames; w++)
+                    yield return new WaitForEndOfFrame();
+                //else
+                //for (int w = 0; w < waitFrames - (waitFrames * .30f); w++)
+                //yield return new WaitForEndOfFrame();
 
                 bodyList[i].position = targetPosition;
                 bodyList[i].rotation = bodyList[i - 1].rotation;
@@ -85,6 +87,10 @@ public class SnakeMovement : MonoBehaviour
             CameraFollow.INSTANCE.target = body;
             body.tag = "Head";
 
+            // ------------------------------- TEXT MESH PRO - Childen Count 
+            Transform numberText = Instantiate(numberPrefab, Vector3.zero, Quaternion.identity);
+            numberText.SetParent(body);
+            childenCounter = numberText.GetComponent<TextMeshPro>();
         }
         else
         {
@@ -94,6 +100,7 @@ public class SnakeMovement : MonoBehaviour
             body.name = "Body";
         }
 
+        body.SetParent(transform);
         bodyList.Add(body);
     }
 

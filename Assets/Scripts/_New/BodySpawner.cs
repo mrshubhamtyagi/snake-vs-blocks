@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BodySpawner : MonoBehaviour {
+public class BodySpawner : MonoBehaviour
+{
+    public Transform bodyPrefab;
+    public Transform numberPrefab;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Start()
+    {
+
+    }
+
+    void Update()
+    {
+
+    }
 }
