@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class SnakeMovement : MonoBehaviour
 {
     public Transform bodyPrefab;
+    public Transform numberPrefab;
     public float moveSpeed = 2;
     public float turnSpeed = 4;
     public float rotateSpeed = 10;
@@ -20,6 +22,7 @@ public class SnakeMovement : MonoBehaviour
     [SerializeField] private List<Transform> bodyList = new List<Transform>();
     private float turnAxis;
     private Quaternion headRotation;
+    private TextMeshPro numberText;
 
     void Start()
     {
@@ -32,7 +35,6 @@ public class SnakeMovement : MonoBehaviour
         turnAxis = Input.GetAxis("Horizontal");
         headRotation = Quaternion.Euler(0, 0, rotateSpeed * -turnAxis);
         StartCoroutine("Co_Move");
-        print(turnAxis);
     }
 
     private IEnumerator Co_Move()
@@ -62,7 +64,7 @@ public class SnakeMovement : MonoBehaviour
                     for (int w = 0; w < waitFrames; w++)
                         yield return new WaitForEndOfFrame();
                 else
-                    for (int w = 0; w < waitFrames - (waitFrames * .40f); w++)
+                    for (int w = 0; w < waitFrames - (waitFrames * .30f); w++)
                         yield return new WaitForEndOfFrame();
 
                 bodyList[i].position = targetPosition;
@@ -82,12 +84,12 @@ public class SnakeMovement : MonoBehaviour
             body.name = "Head";
             CameraFollow.INSTANCE.target = body;
             body.tag = "Head";
+
         }
         else
         {
             Vector3 positionToSpawn = bodyList[bodyList.Count - 1].position;
             positionToSpawn.y -= 10f;
-
             body = Instantiate(bodyPrefab, positionToSpawn, Quaternion.identity);
             body.name = "Body";
         }
@@ -98,5 +100,13 @@ public class SnakeMovement : MonoBehaviour
     private void OnDisable()
     {
         bodyList.Clear();
+    }
+
+    private void OnGUI()
+    {
+        GUIStyle style = new GUIStyle();
+        style.fontSize = 40;
+        GUI.Label(new Rect(0, 0, 100, 100), bodyList.Count.ToString(), style);
+
     }
 }
