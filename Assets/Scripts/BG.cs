@@ -19,4 +19,14 @@ public class BG : MonoBehaviour
         yield return new WaitForSeconds(time);
         gameObject.SetActive(false);
     }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("Head"))
+        {
+            FindObjectOfType<BGSpawner>().SpawnBG();
+            DeactivateBG(3f);
+        }
+
+    }
 }

@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+    public static CameraFollow INSTANCE;
+
     public Transform target;
     public Vector3 targetOffset;
     public float followSpeed = 0.4f;
+
+    private void Awake()
+    {
+        INSTANCE = this;
+    }
 
     void Start()
     {

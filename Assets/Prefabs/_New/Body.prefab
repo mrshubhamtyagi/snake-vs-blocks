@@ -19,12 +19,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4973649629050246}
-  - component: {fileID: 114445978027421706}
   - component: {fileID: 212012761918350892}
-  - component: {fileID: 58263349405336948}
   - component: {fileID: 50912827147572070}
+  - component: {fileID: 61677406096027630}
   m_Layer: 9
-  m_Name: BodyPoint
+  m_Name: Body
   m_TagString: BodyPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 1541059331382164}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children:
   - {fileID: 224164264279140328}
   m_Father: {fileID: 0}
@@ -125,8 +124,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &58263349405336948
-CircleCollider2D:
+--- !u!61 &61677406096027630
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -134,23 +133,22 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 1.2099999, y: 0.47, z: 1.2099999, w: 0.47}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.12, y: 5.12}
+    newSize: {x: 10, y: 10}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 1
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 2.5
---- !u!114 &114445978027421706
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1541059331382164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca7cf528077624c81a656dcf4bb0fb05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Size: {x: 9, y: 10}
+  m_EdgeRadius: 0
 --- !u!114 &114864683884248302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -305,8 +303,8 @@ SpriteRenderer:
   m_Color: {r: 1, g: 0.39215687, b: 0.39215687, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_DrawMode: 1
+  m_Size: {x: 10, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
