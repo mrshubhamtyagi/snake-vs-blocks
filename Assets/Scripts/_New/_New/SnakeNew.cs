@@ -7,6 +7,7 @@ public class SnakeNew : MonoBehaviour
     public Transform bodyPrefab;
     public float moveSpeed = 1;
     public float turnSpeed = 1;
+    public float rotateSpeed = 30;
 
     private List<Transform> listBody = new List<Transform>(0);
     private Rigidbody2D rb;
@@ -30,13 +31,13 @@ public class SnakeNew : MonoBehaviour
 
     void FixedUpdate()
     {
-        //Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
-        //locVel.y = moveSpeed;
-        //rb.velocity = transform.TransformDirection(locVel);
+        velocity.y = moveSpeed * Time.fixedDeltaTime;
+        velocity.x = Input.GetAxis("Horizontal") * turnSpeed * Time.fixedDeltaTime;
 
-        rb.AddForce(Vector3.up * Time.fixedDeltaTime, ForceMode2D.Impulse);
-        //rb.velocity = (transform.up * Time.fixedDeltaTime).normalized * moveSpeed;
-        rb.MoveRotation(Input.GetAxis("Horizontal") * -turnSpeed);
-
+        rb.velocity = velocity;
+        rb.MoveRotation(Input.GetAxis("Horizontal") * -rotateSpeed);
+        //rb.velocity = (Vector3.up * Time.fixedDeltaTime).normalized * moveSpeed;
     }
+
+
 }
