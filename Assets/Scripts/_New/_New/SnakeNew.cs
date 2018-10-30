@@ -9,22 +9,16 @@ public class SnakeNew : MonoBehaviour
     public float turnSpeed = 1;
     public float rotateSpeed = 30;
 
-    private List<Transform> listBody = new List<Transform>(0);
     private Rigidbody2D rb;
+    private Vector3 velocity = Vector3.zero;
+    private BodySpawnerNew bodySpawnerNew;
 
-    Vector3 velocity = Vector3.zero;
-
-    void Start()
+    private void Awake()
     {
-        Transform head = Instantiate(bodyPrefab, Vector3.zero, Quaternion.identity);
-        listBody.Add(head);
-        rb = head.GetComponent<Rigidbody2D>();
-        head.SetParent(transform);
-        CameraFollow.INSTANCE.target = head;
-        head.tag = "Head";
+        bodySpawnerNew = FindObjectOfType<BodySpawnerNew>();
     }
 
-    private void Update()
+    void Start()
     {
 
     }

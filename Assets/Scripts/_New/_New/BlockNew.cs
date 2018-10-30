@@ -12,6 +12,6 @@ public class BlockNew : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D col)
     {
-        col.transform.rotation = Quaternion.identity;
+        
     }
 }

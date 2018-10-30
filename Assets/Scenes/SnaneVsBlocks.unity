@@ -118,48 +118,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4249971401042676, guid: e9e326fe9670049ba810d58c121bff49,
     type: 2}
   m_PrefabInternal: {fileID: 1729674941}
---- !u!1001 &152506986
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4592983278337226, guid: d435ed5c10a2f41e8930b7a9acca7e91, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4592983278337226, guid: d435ed5c10a2f41e8930b7a9acca7e91, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4592983278337226, guid: d435ed5c10a2f41e8930b7a9acca7e91, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4592983278337226, guid: d435ed5c10a2f41e8930b7a9acca7e91, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4592983278337226, guid: d435ed5c10a2f41e8930b7a9acca7e91, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4592983278337226, guid: d435ed5c10a2f41e8930b7a9acca7e91, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4592983278337226, guid: d435ed5c10a2f41e8930b7a9acca7e91, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4592983278337226, guid: d435ed5c10a2f41e8930b7a9acca7e91, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d435ed5c10a2f41e8930b7a9acca7e91, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &490175785
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,7 +422,7 @@ MonoBehaviour:
   bodyPrefab: {fileID: 4973649629050246, guid: d7c9dda7a9d064ea5ba587dd02fea329, type: 2}
   moveSpeed: 100
   turnSpeed: 200
-  rotateSpeed: 35
+  rotateSpeed: 30
 --- !u!1 &1511937102
 GameObject:
   m_ObjectHideFlags: 0
