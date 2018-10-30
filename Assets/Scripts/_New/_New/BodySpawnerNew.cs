@@ -6,22 +6,26 @@ using UnityEngine;
 public class BodySpawnerNew : MonoBehaviour
 {
     public Transform bodyPrefab;
-    public float gap;
-
     public List<Transform> listBody = new List<Transform>(0);
 
+    private SnakeNew snake;
     private bool firstTime = true;
+
+    private void Awake()
+    {
+        snake = FindObjectOfType<SnakeNew>();
+    }
 
     void Start()
     {
-
+        SpawnBody();
     }
 
-    void Update()
+    private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+            SpawnBody();
     }
-
 
     public void SpawnBody()
     {
@@ -32,15 +36,14 @@ public class BodySpawnerNew : MonoBehaviour
             body = Instantiate(bodyPrefab, Vector3.zero, Quaternion.identity);
             listBody.Add(body);
             body.SetParent(transform);
-            CameraFollow.INSTANCE.target = body;
-            body.tag = "Head";
+            snake.SetAsHead(body);
         }
         else
         {
             body = Instantiate(bodyPrefab, GetPosition(), Quaternion.identity);
             listBody.Add(body);
             body.SetParent(transform);
-            body.tag = "Body";
+            body.tag = "BodyPoint";
         }
 
     }

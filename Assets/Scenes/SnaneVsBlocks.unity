@@ -359,6 +359,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1235818451}
+  - component: {fileID: 1235818452}
   m_Layer: 0
   m_Name: BodySpawner
   m_TagString: Untagged
@@ -379,6 +380,19 @@ Transform:
   m_Father: {fileID: 490175786}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1235818452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1235818450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8edc1e744ddd3416b8694a66b3f25dd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyPrefab: {fileID: 4973649629050246, guid: d7c9dda7a9d064ea5ba587dd02fea329, type: 2}
+  listBody: []
 --- !u!1 &1244163819
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,10 +433,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ded7b60f94b442b5b2fafc642c558b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bodyPrefab: {fileID: 4973649629050246, guid: d7c9dda7a9d064ea5ba587dd02fea329, type: 2}
-  moveSpeed: 100
-  turnSpeed: 200
+  moveSpeed: 200
+  turnSpeed: 300
   rotateSpeed: 30
+  waitTime: 4
+  followSpeed: 0.3
+  gap: 0.5
+  moveUsingLerp: 0
 --- !u!1 &1511937102
 GameObject:
   m_ObjectHideFlags: 0
