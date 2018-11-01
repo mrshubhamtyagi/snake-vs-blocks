@@ -4,22 +4,26 @@ using UnityEngine;
 
 public class SnakeNew : MonoBehaviour
 {
-    public enum MoveMethod { Lerp, Coroutine };
+    public enum MoveMethod { LerpOnly, CoroutineOnly, Both };
 
     public float moveSpeed = 1;
     public float turnSpeed = 1;
     public float rotateSpeed = 30;
 
-    [Header("Lerp Fiels")]
-    public float lerpGap = 0.5f;
-    public float followLerp = 0.4f;
+    [Header("Lerp Only")]
+    public float L_gap = 0.5f;
+    public float L_lerp = 0.4f;
 
-    [Header("Lerp & Coroutine Fiels")]
-    public float coroutineGap = 0.5f;
-    public int skipFrames = 2;
-    public float coroutineLerp = 0.6f;
+    [Header("Coroutine Only")]
+    public float C_gap = 0.5f;
+    public int C_skipFrames = 2;
 
-    [Space(10)] public MoveMethod moveMethod = MoveMethod.Lerp;
+    [Header("Both Lerp & Coroutine")]
+    public float B_gap = 0.5f;
+    public int B_skipframes = 2;
+    public float B_lerp = 0.6f;
+
+    [Space(10)] public MoveMethod moveMethod = MoveMethod.LerpOnly;
 
     private Rigidbody2D headRigidBody;
     private Vector3 velocity = Vector3.zero;
@@ -27,8 +31,9 @@ public class SnakeNew : MonoBehaviour
 
     private WaitForSeconds waitForSeconds;
     private WaitForEndOfFrame skipFrame = new WaitForEndOfFrame();
-    private Vector3 positionToFollow;
-    private Quaternion rotationToFollow;
+    private float _X;
+    private float _Y;
+    private float _Z;
 
     public void SetAsHead(Transform body)
     {
@@ -51,16 +56,17 @@ public class SnakeNew : MonoBehaviour
     void FixedUpdate()
     {
         MoveHead();
-        if (moveMethod == MoveMethod.Lerp)
-            MoveBodyUsingLerp();
-        if (moveMethod == MoveMethod.Coroutine)
-            MoveBodyUsingCoroutine();
+        if (moveMethod == MoveMethod.LerpOnly)
+            MoveBodyUsingOnlyLerp();
+        if (moveMethod == MoveMethod.CoroutineOnly)
+            MoveBodyUsingOnlyCoroutine();
+        if (moveMethod == MoveMethod.Both)
+            MoveBodyUsingBoth();
     }
 
     #region Move Head
     private void MoveHead()
     {
-
         if (headRigidBody != null)
         {
             velocity.y = moveSpeed * Time.fixedDeltaTime;
@@ -68,13 +74,12 @@ public class SnakeNew : MonoBehaviour
 
             headRigidBody.velocity = velocity;
             headRigidBody.MoveRotation(Input.GetAxis("Horizontal") * -rotateSpeed);
-            //rb.velocity = (Vector3.up * Time.fixedDeltaTime).normalized * moveSpeed;
         }
     }
     #endregion
 
-    #region Move Body Using Lerp
-    private void MoveBodyUsingLerp()
+    #region Move Body Using Only Lerp
+    private void MoveBodyUsingOnlyLerp()
     {
         if (bodySpawnerNew.listBody.Count > 1)
         {
@@ -83,19 +88,62 @@ public class SnakeNew : MonoBehaviour
                 Transform currentBodyPart = bodySpawnerNew.listBody[i];
                 Transform previousBodyPart = bodySpawnerNew.listBody[i - 1];
 
-                positionToFollow = previousBodyPart.position;
-                positionToFollow.y -= lerpGap;
-                rotationToFollow = previousBodyPart.rotation;
+                Vector3 _positionToFollow = previousBodyPart.position;
+                _positionToFollow.y -= L_gap;
 
-                currentBodyPart.position = Vector3.Lerp(currentBodyPart.position, positionToFollow, followLerp);
-                currentBodyPart.rotation = Quaternion.Lerp(currentBodyPart.rotation, rotationToFollow, followLerp);
+                currentBodyPart.position = Vector3.Lerp(currentBodyPart.position, _positionToFollow, L_lerp);
+                currentBodyPart.rotation = Quaternion.Lerp(currentBodyPart.rotation, previousBodyPart.rotation, L_lerp);
             }
         }
     }
     #endregion
 
-    #region Move Body Using Coroutine
-    private void MoveBodyUsingCoroutine()
+    #region Move Body Using Only Coroutine
+    private void MoveBodyUsingOnlyCoroutine()
+    {
+        if (bodySpawnerNew.listBody.Count > 1)
+        {
+            for (int i = 1; i < bodySpawnerNew.listBody.Count; i++)
+            {
+                Transform currentBodyPart = bodySpawnerNew.listBody[i];
+                Transform previousBodyPart = bodySpawnerNew.listBody[i - 1];
+
+                Vector3 _positionToFollow = previousBodyPart.position;
+                _positionToFollow.y -= L_gap;
+
+                StartCoroutine(Co_MoveBodyUsingOnlyCoroutine(currentBodyPart, previousBodyPart, i));
+            }
+        }
+    }
+    private IEnumerator Co_MoveBodyUsingOnlyCoroutine(Transform _current, Transform _previous, int _index)
+    {
+        Vector3 _positionToFollow = _previous.position;
+        _positionToFollow.y -= C_gap;
+
+
+        _X = _current.position.x;
+        _Y = _positionToFollow.y;
+        _Z = _previous.position.z;
+        _current.position = new Vector3(_X, _Y, _Z);
+
+        if (_index == 1)
+            yield return skipFrame;
+        else
+            for (int j = 0; j < C_skipFrames; j++)
+                yield return skipFrame;
+
+        _X = _positionToFollow.x;
+        _Y = _current.position.y;
+        _Z = _previous.position.z;
+        Vector3.MoveTowards(_current.position, new Vector3(_X, _Y, _Z), moveSpeed * Time.fixedDeltaTime);
+        //_current.position = new Vector3(_X, _Y, _Z);
+        _current.rotation = Quaternion.Lerp(_current.rotation, _previous.rotation, L_lerp);
+
+    }
+    #endregion
+
+    #region Move Body Using Both Lerp & Coroutine
+    private void MoveBodyUsingBoth()
     {
         if (bodySpawnerNew.listBody.Count > 1)
         {
@@ -105,30 +153,33 @@ public class SnakeNew : MonoBehaviour
             {
                 current = bodySpawnerNew.listBody[i];
                 previous = bodySpawnerNew.listBody[i - 1];
-                StartCoroutine(Co_MoveBodyUsingCoroutine(current, previous));
+
+                StartCoroutine(Co_MoveBodyUsingBoth(current, previous, i));
             }
         }
     }
 
-    private IEnumerator Co_MoveBodyUsingCoroutine(Transform _current, Transform _previous)
+    private IEnumerator Co_MoveBodyUsingBoth(Transform _current, Transform _previous, int _index)
     {
-        positionToFollow = _previous.position;
-        positionToFollow.y -= coroutineGap;
-        rotationToFollow = _previous.rotation;
+        Vector3 _positionToFollow = _previous.position;
+        _positionToFollow.y -= B_gap;
 
-        float _X = _current.position.x;
-        float _Y = Mathf.SmoothStep(_current.position.y, positionToFollow.y, coroutineLerp);
-        float _Z = _previous.position.z;
+        _X = _current.position.x;
+        _Y = Mathf.SmoothStep(_current.position.y, _positionToFollow.y, B_lerp);
+        _Z = _previous.position.z;
         _current.position = new Vector3(_X, _Y, _Z);
 
-        for (int j = 0; j < skipFrames; j++)
+        if (_index == 1)
             yield return skipFrame;
+        else
+            for (int j = 0; j < B_skipframes; j++)
+                yield return skipFrame;
 
-        _X = Mathf.SmoothStep(_current.position.x, positionToFollow.x, coroutineLerp);
+        _X = Mathf.SmoothStep(_current.position.x, _positionToFollow.x, B_lerp);
         _Y = _current.position.y;
         _Z = _previous.position.z;
         _current.position = new Vector3(_X, _Y, _Z);
-        _current.rotation = Quaternion.Lerp(_current.rotation, _previous.rotation, coroutineLerp);
+        _current.rotation = Quaternion.Lerp(_current.rotation, _previous.rotation, B_lerp);
 
     }
     #endregion

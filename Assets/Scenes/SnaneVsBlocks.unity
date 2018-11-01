@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 142470921}
-  targetOffset: {x: 0, y: 0, z: -10}
+  targetOffset: {x: 0, y: -2, z: -10}
   followSpeed: 0.4
 --- !u!1 &554768396
 GameObject:
@@ -433,15 +433,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ded7b60f94b442b5b2fafc642c558b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 100
+  moveSpeed: 300
   turnSpeed: 500
   rotateSpeed: 40
-  lerpGap: 0.4
-  followLerp: 0.25
-  coroutineGap: 0.5
-  skipFrames: 2
-  coroutineLerp: 0.6
-  moveMethod: 0
+  L_gap: 0.5
+  L_lerp: 0.4
+  C_gap: 0.5
+  C_skipFrames: 2
+  B_gap: 0.5
+  B_skipframes: 3
+  B_lerp: 0.6
+  moveMethod: 1
 --- !u!1 &1511937102
 GameObject:
   m_ObjectHideFlags: 0
