@@ -19,6 +19,23 @@ public class BodySpawnerNew : MonoBehaviour
     void Start()
     {
         SpawnBody();
+        SpawnBody();
+        SpawnBody();
+        SpawnBody();
+        SpawnBody();
+        SpawnBody();
+        SpawnBody();
+        SpawnBody();
+        SpawnBody();
+        SpawnBody();
+        SpawnBody();
+        SpawnBody();
+        SpawnBody();
+        SpawnBody();
+        SpawnBody();
+        SpawnBody();
+        SpawnBody();
+
     }
 
     private void Update()

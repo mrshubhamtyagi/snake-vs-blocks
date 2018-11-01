@@ -61,8 +61,8 @@ public class SnakeMovement : MonoBehaviour
                 targetPosition = bodyList[i - 1].position;
                 targetPosition.y -= gap;
 
-                //|| turnAxis > .99f || turnAxis < -.99f
-                //if (turnAxis == 0f)
+
+                //if (turnAxis == 0f) //|| turnAxis > .99f || turnAxis < -.99f
                 for (int w = 0; w < waitFrames; w++)
                     yield return new WaitForEndOfFrame();
                 //else

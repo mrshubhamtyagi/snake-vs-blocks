@@ -433,13 +433,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ded7b60f94b442b5b2fafc642c558b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 200
-  turnSpeed: 300
-  rotateSpeed: 30
-  waitTime: 4
-  followSpeed: 0.3
-  gap: 0.5
-  moveUsingLerp: 0
+  moveSpeed: 100
+  turnSpeed: 500
+  rotateSpeed: 40
+  lerpGap: 0.4
+  followLerp: 0.25
+  coroutineGap: 0.5
+  skipFrames: 2
+  coroutineLerp: 0.6
+  moveMethod: 0
 --- !u!1 &1511937102
 GameObject:
   m_ObjectHideFlags: 0
