@@ -120,7 +120,6 @@ public class SnakeNew : MonoBehaviour
         Vector3 _positionToFollow = _previous.position;
         _positionToFollow.y -= C_gap;
 
-
         _X = _current.position.x;
         _Y = _positionToFollow.y;
         _Z = _previous.position.z;
@@ -134,8 +133,8 @@ public class SnakeNew : MonoBehaviour
 
         _X = _positionToFollow.x;
         _Y = _current.position.y;
-        _Z = _previous.position.z;
-        Vector3.MoveTowards(_current.position, new Vector3(_X, _Y, _Z), moveSpeed * Time.fixedDeltaTime);
+        _Z = _positionToFollow.z;
+        _current.GetComponent<Rigidbody2D>().AddForce(Vector2.right.normalized * Input.GetAxis("Horizontal"), ForceMode2D.Impulse);
         //_current.position = new Vector3(_X, _Y, _Z);
         _current.rotation = Quaternion.Lerp(_current.rotation, _previous.rotation, L_lerp);
 
